@@ -7,7 +7,7 @@
 	
 	<center>
 	<img width="100px" src="<?= base_url('assets/img/umc.png') ?>">
-	<h1 align="center">DATA PRODI UNIVERSITAS</h1>
+	<h1 align="center">DATA PRODI</h1>
 	<h3 align="center"> UNIVERSITAS MUHAMMADIYAH CIREBON</h3>
 	</center>
 
