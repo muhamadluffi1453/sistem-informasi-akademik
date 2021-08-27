@@ -25,8 +25,22 @@
 
 					if($dropdown->semester == 1){
 						$tampilsemester = "Ganjil";
-					}else{
+					}elseif($dropdown->semester == 2){
 						$tampilsemester = "Genap";
+					}elseif($dropdown->semester == 3){
+						$tampilsemester = "Ganjil";
+					}elseif($dropdown->semester == 4){
+						$tampilsemester = "Genap";
+					}elseif($dropdown->semester == 5){
+						$tampilsemester = "Ganjil";
+					}elseif($dropdown->semester == 6){
+						$tampilsemester = "Genap";
+					}elseif($dropdown->semester == 7){
+						$tampilsemester = "Ganjil";
+					}elseif($dropdown->semester == 8){
+						$tampilsemester = "Genap";
+					}else{
+						
 					}
 
 					$dropDownList[$dropdown->id_thn_akad] = $dropdown->thn_semester . " " . $tampilsemester;

@@ -38,10 +38,24 @@ $id_thn_akad = $krs->id_thn_akad;
  					$thn = $nilai->tahunakademik_model->get_by_id($id_thn_akad);
  					$semester = $thn->semester == 1;
 
- 					if($semester){
+ 					if($thn->semester){
  						$tampilSemester = "Ganjil";
- 					}else{
+ 					}elseif($thn->semester==2){
  						$tampilSemester = "Genap";
+ 					}elseif($thn->semester==3){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($thn->semester==4){
+ 						$tampilSemester = "Genap";
+ 					}elseif($thn->semester==5){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($thn->semester==6){
+ 						$tampilSemester = "Genap";
+ 					}elseif($thn->semester==7){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($thn->semester==8){
+ 						$tampilSemester = "Genap";
+ 					}else{
+ 						
  					}
  				 ?>
 

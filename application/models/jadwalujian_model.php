@@ -70,4 +70,15 @@ class Jadwalujian_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	public function cekRuangan($ruangan,$hari,$jam)
+	{
+		$this->db->select('*');
+		$this->db->from('jadwal_ujian');
+		$this->db->where('id_ruangan', $ruangan);
+		$this->db->where('hari', $hari);
+		$this->db->where('jam', $jam);
+		return $this->db->get()->result();
+
+	}
+
 }

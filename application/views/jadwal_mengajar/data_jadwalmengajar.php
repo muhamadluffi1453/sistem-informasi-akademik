@@ -24,6 +24,8 @@
 	
 	<?= anchor('tatausaha/jadwal_mengajar/tambah_jadwal/'.$nama_prodi, '<button class="btn btn-sm btn-primary mb-3"><i class="fas fa-plus fa-sm"></i> Tambah Jadwal Mengajar</button>') ?>
 
+	<a href="<?= base_url('tatausaha/jadwal_ujian/print_mengajar/').$nama_prodi?>" target="_blank" class="btn btn-info"><i class="fas fa-print">Print</i></a>
+
 	<table class="table table-bordered table-striped table-hover">
 		<tr>
 			<th>NO</th>

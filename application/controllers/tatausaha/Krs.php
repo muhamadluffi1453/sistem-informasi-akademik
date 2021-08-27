@@ -20,6 +20,7 @@ class Krs extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman KRS';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('krs/masuk_krs', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -52,13 +53,14 @@ class Krs extends CI_Controller{
 			'nim'	   => $nim,
 			'id_thn_akad' => $thn_akad,
 			'tahun_akademik' => $this->tahunakademik_model->get_by_id($thn_akad)->tahun_akademik,
-			'semester' => $this->tahunakademik_model->get_by_id($thn_akad)->semester==1?'Ganjil':'Genap',
+			'semester' => $this->tahunakademik_model->get_by_id($thn_akad)->semester,
 			'nama' => $this->Mahasiswa_model->get_by_id($nim)->nama,
 			'prodi' => $this->Mahasiswa_model->get_by_id($nim)->nama_prodi,
 		];
 		$judul['title'] = 'Halaman KRS';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('krs/krs_list', $dataKrs);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -82,13 +84,15 @@ class Krs extends CI_Controller{
 
 	public function tambah_krs($nim, $thn_akad)
 	{
+		$prodi = $this->krs_model->getProdi($nim);
 		$data = [
 			'id_krs'		=> set_value('id_krs'),
 			'id_thn_akad' 	=> $thn_akad,
 			'thn_akad_smt' 	=> $this->tahunakademik_model->get_by_id($thn_akad)->tahun_akademik,
-			'semester' 		=> $this->tahunakademik_model->get_by_id($thn_akad)->semester==1?'Ganjil':'Genap',
+			'semester' 		=> $this->tahunakademik_model->get_by_id($thn_akad)->semester%2>0?'Ganjil':'Genap',
 			'nim'	   		=> $nim,
-			'kode_matakuliah' => set_value('kode_matakuliah')
+			'kode_matakuliah' => set_value('kode_matakuliah'),
+			'prodi'			=>$prodi[0]['nama_prodi']
 
 		];
 		// $nama_prodi=$this->input->post('id_prodi');
@@ -97,6 +101,7 @@ class Krs extends CI_Controller{
 		$judul['title'] = 'Halaman Tambah Data KRS';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('krs/krs_form', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -149,6 +154,7 @@ class Krs extends CI_Controller{
 
 			$this->load->view('templates_admin/templates_tu/auth_header');
 			$this->load->view('templates_admin/templates_tu/sidebar');
+			$this->load->view('templates_admin/templates_tu/topbar');
 			$this->load->view('krs/krs_update', $data);
 			$this->load->view('templates_admin/templates_tu/auth_footer');
 		}else{

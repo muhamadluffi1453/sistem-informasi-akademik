@@ -19,6 +19,7 @@ class Transkrip_nilai extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman Transkrip Nilai';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('transkrip_nilai/masuk_transkrip', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}
@@ -75,6 +76,7 @@ class Transkrip_nilai extends CI_Controller{
 		$judul['title'] = 'Halaman Transkrip Nilai';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('transkrip_nilai/data_transkrip', $data);
 		$this->load->view('templates_admin/auth_footer');
 

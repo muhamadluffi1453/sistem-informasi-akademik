@@ -20,45 +20,47 @@ class Krs extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman KRS';
 		$this->load->view('templates_admin/templates_mhs/auth_header', $judul);
 		$this->load->view('templates_admin/templates_mhs/sidebar');
+		$this->load->view('templates_admin/templates_mhs/topbar');
 		$this->load->view('krs_mhs/masuk_krs', $data);
 		$this->load->view('templates_admin/templates_mhs/auth_footer');
 	}
 
 	public function krs_aksi()
 	{
-		$this->_rulesKrs();
+		// $this->_rulesKrs();
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->index();
-		}else{
+		// if ($this->form_validation->run() == FALSE) {
+		// 	$this->index();
+		// }else{
 			$nim = $this->input->post('nim', TRUE);
 			$thn_akad = $this->input->post('id_thn_akad', TRUE);
-		}
+		// }
 
-		if($this->Mahasiswa_model->get_by_id($nim)==null)
-		{
-			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert">Data Mahasiswa yang Anda Input Belum Terdaftar<button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
-			redirect('mahasiswa/krs/index');
-		}
+		// if($this->Mahasiswa_model->get_by_id($nim)==null)
+		// {
+		// 	$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert">Data Mahasiswa yang Anda Input Belum Terdaftar<button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
+		// 	redirect('mahasiswa/krs/index');
+		// }
 
 		$data = [
-			'nim' => $nim,
+			'nim' => $this->session->userdata['nim'],
 			'id_thn_akad' => $thn_akad,
-			'nama' => $this->Mahasiswa_model->get_by_id($nim)->nama
+			'nama' => $this->session->userdata['username']
 		];
 
 		$dataKrs = [
-			'krs_data' 	=> $this->baca_krs($nim,$thn_akad),
-			'nim'	   => $nim,
+			'krs_data' 	=> $this->baca_krs($this->session->userdata['nim'],$thn_akad),
+			'nim'	   => $this->session->userdata['nim'],
 			'id_thn_akad' => $thn_akad,
 			'tahun_akademik' => $this->tahunakademik_model->get_by_id($thn_akad)->tahun_akademik,
-			'semester' => $this->tahunakademik_model->get_by_id($thn_akad)->semester==1?'Ganjil':'Genap',
-			'nama' => $this->Mahasiswa_model->get_by_id($nim)->nama,
-			'prodi' => $this->Mahasiswa_model->get_by_id($nim)->nama_prodi,
+			'semester' => $this->tahunakademik_model->get_by_id($thn_akad)->semester,
+			'nama' => $this->session->userdata['username'],
+			'prodi' => $this->Mahasiswa_model->get_by_id($this->session->userdata['nim'])->nama_prodi,
 		];
 		$judul['title'] = 'Halaman KRS';
 		$this->load->view('templates_admin/templates_mhs/auth_header', $judul);
 		$this->load->view('templates_admin/templates_mhs/sidebar');
+		$this->load->view('templates_admin/templates_mhs/topbar');
 		$this->load->view('krs_mhs/krs_list', $dataKrs);
 		$this->load->view('templates_admin/templates_mhs/auth_footer');
 	}
@@ -67,7 +69,7 @@ class Krs extends CI_Controller{
 	{
 		$this->db->select('k.id_krs,k.kode_matakuliah,m.nama_matakuliah,m.sks');
 		$this->db->from('krs as k');
-		$this->db->where('k.nim', $nim);
+		$this->db->where('k.nim', $this->session->userdata['nim']);
 		$this->db->where('k.id_thn_akad', $thn_akad);
 		$this->db->join('matakuliah as m', 'm.kode_matakuliah = k.kode_matakuliah');
 		$krs = $this->db->get()->result();
@@ -82,21 +84,28 @@ class Krs extends CI_Controller{
 
 	public function tambah_krs($nim, $thn_akad)
 	{
+		$prodi = $this->krs_model->getProdi($this->session->userdata('nim'));
 		$data = [
 			'id_krs'		=> set_value('id_krs'),
 			'id_thn_akad' 	=> $thn_akad,
 			'thn_akad_smt' 	=> $this->tahunakademik_model->get_by_id($thn_akad)->tahun_akademik,
-			'semester' 		=> $this->tahunakademik_model->get_by_id($thn_akad)->semester==1?'Ganjil':'Genap',
-			'nim'	   		=> $nim,
-			'kode_matakuliah' => set_value('kode_matakuliah')
+			'semester' 		=> $this->tahunakademik_model->get_by_id($thn_akad)->semester%2>0?'Ganjil':'Genap',
+			'nim'	   		=> $this->session->userdata['nim'],
+			'kode_matakuliah' => set_value('kode_matakuliah'),
+			'prodi'			=>$prodi[0]['nama_prodi']
+
+			
 
 		];
 		// $nama_prodi=$this->input->post('id_prodi');
 		// $data['matakuliah'] = $this->krs_model->joinmk($nama_prodi);
 		// $data['join_krs'] = $this->krs_model->join_krs();
+		$nama_prodi=$this->input->post('id_prodi');
+		
 		$judul['title'] = 'Halaman Tambah Data KRS';
 		$this->load->view('templates_admin/templates_mhs/auth_header', $judul);
 		$this->load->view('templates_admin/templates_mhs/sidebar');
+		$this->load->view('templates_admin/templates_mhs/topbar');
 		$this->load->view('krs_mhs/krs_form', $data);
 		$this->load->view('templates_admin/templates_mhs/auth_footer');
 	}
@@ -113,10 +122,13 @@ class Krs extends CI_Controller{
 			$id_thn_akad  = $this->input->post('id_thn_akad', TRUE);
 			$kode_matakuliah  = $this->input->post('kode_matakuliah', TRUE);
 
+			
+
 			$data = [
 				'id_thn_akad'		=> $id_thn_akad,
 				'nim'				=> $nim,
 				'kode_matakuliah'	=> $kode_matakuliah,
+
 			];
 
 			$this->krs_model->insert($data);
@@ -149,6 +161,7 @@ class Krs extends CI_Controller{
 
 			$this->load->view('templates_admin/templates_mhs/auth_header');
 			$this->load->view('templates_admin/templates_mhs/sidebar');
+			$this->load->view('templates_admin/templates_mhs/topbar');
 			$this->load->view('krs_mhs/krs_update', $data);
 			$this->load->view('templates_admin/templates_mhs/auth_footer');
 		}else{

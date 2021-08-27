@@ -16,46 +16,16 @@ class Nilai extends CI_Controller{
 			'nim'	=> set_value('nim'),
 			'id_thn_akad' => set_value('id_thn_akad'),
 		];
-		$judul['title'] = 'Masuk Halaman KHS';
-		$this->load->view('templates_admin/templates_mhs/auth_header', $judul);
-		$this->load->view('templates_admin/templates_mhs/sidebar');
-		$this->load->view('nilai/masuk_khs', $data);
-		$this->load->view('templates_admin/templates_mhs/auth_footer');
-	}
+		$nim = $this->input->post('nim', TRUE);
+		$this->db->select('tahun_akademik.tahun_akademik,tahun_akademik.semester');
+		$this->db->from('krs');
+		$this->db->where('nim', $this->session->userdata['nim']);
+		$this->db->join('matakuliah', 'krs.kode_matakuliah=matakuliah.kode_matakuliah', 'inner');
+		$this->db->join('tahun_akademik', 'krs.id_thn_akad=tahun_akademik.id_thn_akad', 'right');
+		$this->db->group_by('semester');
+		$sql = $this->db->get()->result_array();
 
-	public function nilai_aksi()
-	{
-		$this-> _rulesKhs();
-
-		if($this->form_validation->run() == FALSE){
-			$this->index();
-		}else{
-			$nim = $this->input->post('nim', TRUE);
-			$thn_akad = $this->input->post('id_thn_akad', TRUE);
-		}
-
-			if($this->Mahasiswa_model->get_by_id($nim)==null)
-		{
-			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert">Data Mahasiswa yang Anda Input Belum Terdaftar<button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
-			redirect('mahasiswa/nilai/index');
-		}
-
-			$query = "SELECT krs.id_thn_akad
-							 ,krs.kode_matakuliah
-							 ,matakuliah.nama_matakuliah
-							 ,matakuliah.sks
-							 ,krs.nilai
-						FROM 
-							krs
-						INNER JOIN matakuliah
-						ON (krs.kode_matakuliah = matakuliah.kode_matakuliah)
-						WHERE krs.nim= $nim AND krs.id_thn_akad= $thn_akad";
-
-			$sql = $this->db->query($query)->result();
-
-			$smt = $this->db->select('tahun_akademik, semester')
-							->from('tahun_akademik')
-							->where(['id_thn_akad' =>$thn_akad])->get()->row();
+			
 
 			$query_str = "SELECT mahasiswa.nim
 								 ,mahasiswa.nama 
@@ -66,31 +36,65 @@ class Nilai extends CI_Controller{
 								ON (mahasiswa.nama_prodi = prodi.nama_prodi);";
 			$mhs = $this->db->query($query_str)->row();
 
-			if($smt->semester == 1){
-				$tampilsemester ="Ganjil";
-			}else{
-				$tampilsemester = "Genap";
-			}
-		
+			$databd=$this->krs_model->totalSks($nim);
 
+			
+		
 		$data = [
 				'mhs_data' => $sql,
-				'mhs_nim' => $nim,
-				'mhs_nama' => $this->Mahasiswa_model->get_by_id($nim)->nama,
-				'mhs_prodi' => $this->Mahasiswa_model->get_by_id($nim)->nama_prodi,
-				'thn_akad' => $smt->tahun_akademik."(".$tampilsemester.")"
+				'mhs_nim' => $this->session->userdata['nim'],
+				'mhs_nama' => $this->Mahasiswa_model->get_by_id($this->session->userdata['nim'])->nama,
+				'totalSmstr' => $databd[0]['jumlahSks'],
+				'mhs_prodi' => $this->Mahasiswa_model->get_by_id($this->session->userdata['nim'])->nama_prodi,
+				
 		];
+
 		$judul['title'] = 'Halaman Nilai KHS';
 		$this->load->view('templates_admin/templates_mhs/auth_header', $judul);
 		$this->load->view('templates_admin/templates_mhs/sidebar');
+		$this->load->view('templates_admin/templates_mhs/topbar');
 		$this->load->view('nilai/khs', $data);
 		$this->load->view('templates_admin/templates_mhs/auth_footer');
+	}
+
+	public function nilai_aksi()
+	{
+		// $this-> _rulesKhs();
+
+		// if($this->form_validation->run() == FALSE){
+		// 	$this->index();
+		// }else{
+			
+			// $thn_akad = $this->input->post('id_thn_akad', TRUE);
+		// }
+		// 	$nim = $this->input->post('nim', TRUE);
+		// 	if($this->Mahasiswa_model->get_by_id($nim)==null)
+		// {
+		// 	$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert">Data Mahasiswa yang Anda Input Belum Terdaftar<button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
+		// 	redirect('mahasiswa/nilai/index');
+		// }
+		
+	}
+
+	public function baca_khs($nim,$thn_akad)
+	{
+		$this->db->select('krs.id_thn_akad
+							 ,krs.kode_matakuliah
+							 ,matakuliah.nama_matakuliah
+							 ,matakuliah.sks
+							 ,krs.nilai');
+		$this->db->from('krs');
+		$this->db->where('krs.nim', $nim);
+		$this->db->where('krs.id_thn_akad', $thn_akad);
+		$this->db->join('matakuliah', 'krs.kode_matakuliah=matakuliah.kode_matakuliah');
+		$khs = $this->db->get()->result();
+		return $khs;
 	}
 
 	public function _rulesKhs()
 	{
 		$this->form_validation->set_rules('nim', 'nim', 'required');
-		$this->form_validation->set_rules('id_thn_akad', 'id_thn_akad', 'required');
+		// $this->form_validation->set_rules('id_thn_akad', 'id_thn_akad', 'required');
 	}
 
 	public function input_nilai()

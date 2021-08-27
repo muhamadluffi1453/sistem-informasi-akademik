@@ -7,7 +7,7 @@
   	<?= form_open_multipart('datamahasiswa/input_mahasiswa_aksi') ?>
 		<div class="form-group">
 			<label>Nama</label>
-			<input type="text" name="nama" placeholder="Masukan Nama" class="form-control">
+			<input type="text"  name="nama" placeholder="Masukan Nama" class="form-control">
 			<?= form_error('nama', '<div class="text-danger small" ml-3>') ?>
 		</div>
 

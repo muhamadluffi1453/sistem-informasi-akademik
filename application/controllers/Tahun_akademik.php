@@ -71,6 +71,7 @@ class Tahun_akademik extends CI_Controller{
 
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('tahun_akademik/index', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}
@@ -80,6 +81,7 @@ class Tahun_akademik extends CI_Controller{
 		$judul['title'] = 'Form Input Tahun Akademik';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('tahun_akademik/tahun_akademik_form');
 		$this->load->view('templates_admin/auth_footer');
 	}
@@ -122,6 +124,7 @@ class Tahun_akademik extends CI_Controller{
 		$judul['title'] = 'Form Update Tahun Akademik';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('tahun_akademik/tahun_akademik_update', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}

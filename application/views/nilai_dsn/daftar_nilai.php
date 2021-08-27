@@ -16,6 +16,7 @@ $id_thn_akad = $krs->id_thn_akad;
  		<i class="fas fa-university"></i> DAFTAR NILAI MAHASISWA
  	</div>
 
+
  	<center>
  		<legend><strong>DAFTAR NILAI MAHASISWA</strong></legend>
  		<table>
@@ -38,10 +39,24 @@ $id_thn_akad = $krs->id_thn_akad;
  					$thn = $nilai->tahunakademik_model->get_by_id($id_thn_akad);
  					$semester = $thn->semester == 1;
 
- 					if($semester){
+ 					if($thn->semester == 1){
  						$tampilSemester = "Ganjil";
- 					}else{
+ 					}elseif($thn->semester==2){
  						$tampilSemester = "Genap";
+ 					}elseif($thn->semester==3){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($thn->semester==4){
+ 						$tampilSemester = "Genap";
+ 					}elseif($thn->semester==5){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($thn->semester==6){
+ 						$tampilSemester = "Genap";
+ 					}elseif($thn->semester==7){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($thn->semester==8){
+ 						$tampilSemester = "Genap";
+ 					}else{
+ 						
  					}
  				 ?>
 
@@ -55,6 +70,8 @@ $id_thn_akad = $krs->id_thn_akad;
  			</tr>
  		</table>
  	</center>
+
+ 	<a href="<?= base_url('dosen1/nilai_dsn/print_nilai/')?>" target="_blank" class="btn btn-info"><i class="fas fa-print">Print</i></a>
 
  	<table class="table table-hover table-bordered table-striped mt-3">
  		<tr>

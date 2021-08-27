@@ -8,13 +8,13 @@
 
 	<form method="post" action="<?= base_url('mahasiswa/nilai/nilai_aksi') ?>">
 		
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label>NIM Mahasiswa</label>
 			<input type="text" name="nim" placeholder="Masukan Nim Mahasiswa" class="form-control">
 			<?= form_error('nim', '<div class="text-danger small ml-2">','</div>') ?>
-		</div>
+		</div> -->
 
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label>Tahun Akademik / Semester</label>
 			<?php 
 				$query = $this->db->query('SELECT id_thn_akad, semester,CONCAT(tahun_akademik, "/") AS thn_semester FROM tahun_akademik');
@@ -34,7 +34,7 @@
 
 				echo form_dropdown('id_thn_akad', $dropDownList,'', 'class="form-control" id="id_thn_akad"');
 			 ?>
-		</div>
+		</div> -->
 
 		<button type="submit" class="btn btn-primary">Proses</button>
 	</form>

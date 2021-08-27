@@ -41,7 +41,7 @@
 			<th>NAMA MATAKULIAH</th>
 			<th>SKS</th>
 			<th>NILAI</th>
-			<th>SKOR</th>
+			<th>MUTU NILAI</th>
 		</tr>
 
 		<?php
@@ -55,7 +55,7 @@
 				<td><?= $mhs['kode_matakuliah'] ?></td>
 				<td><?= $mhs['nama_matakuliah'] ?></td>
 				<td><?= $mhs['sks'] ?></td>
-				<td><?= $mhs['nilai'] ?></td>
+				<td><?= konvert($mhs['nilai']); ?></td>
 				<td text-align="center"><?= skorNilai($mhs['nilai'],$mhs['sks']);?></td>
 
 				<?php 

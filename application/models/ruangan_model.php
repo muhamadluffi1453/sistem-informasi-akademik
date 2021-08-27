@@ -63,4 +63,6 @@ class Ruangan_model extends CI_Model{
 	}	
 
 	
+
+	
 }

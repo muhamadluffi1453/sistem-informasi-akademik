@@ -65,10 +65,10 @@
 			<th>FAKULTAS</th>
 			<th colspan="2">AKSI</th>
 		</tr>
-		<?php $start=1 ?>
+		
 		<?php foreach ($ruangan as $ruang) :?>
 			<tr>
-				<th width="20px"><?= $start++; ?></th>
+				<th width="20px"><?= ++$start; ?></th>
 				<td><?= $ruang['kode_ruangan']; ?></td>
 				<td><?= $ruang['nama_ruangan']; ?></td>
 				<td><?= $ruang['fakultas']; ?></td>

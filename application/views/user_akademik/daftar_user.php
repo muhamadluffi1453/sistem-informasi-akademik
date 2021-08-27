@@ -39,7 +39,7 @@
 
 		foreach($user_akademik as $us) :?>
 			<tr>
-				<td><?= $no++ ?></td>
+				<td><?= ++$start; ?></td>
 				<td><?= $us['name']  ?></td>
 				<td><?= $us['username'] ?></td>
 				<td><?= $us['email'] ?></td>
@@ -49,6 +49,7 @@
 				<td width="20px"><?= anchor('user_akademik/update/' .$us['id'], '<div class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></div>') ?></td>
 				<td width="20px"><?= anchor('user_akademik/delete/' .$us['id'], '<div class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></div>') ?></td>
 			</tr>
+			<?php $no++; ?>
 		<?php endforeach; ?>
 	</table>
 

@@ -22,6 +22,7 @@ class Matakuliah extends CI_Controller{
 		
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('matakuliah/masuk_matkul', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -42,6 +43,7 @@ class Matakuliah extends CI_Controller{
 		$data['nama_prodi'] = $nama_prodi;
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('matakuliah/matkul', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -55,6 +57,7 @@ class Matakuliah extends CI_Controller{
 		$judul['title'] = 'Form Input Matakuliah';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('matakuliah/matakuliah_form', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -107,6 +110,7 @@ class Matakuliah extends CI_Controller{
 		$judul['title'] = 'Halaman Detail Matakuliah';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('matakuliah/matakuliah_detail', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -122,6 +126,7 @@ class Matakuliah extends CI_Controller{
 		$judul['title'] = 'Form Update Matakuliah';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('matakuliah/matakuliah_update', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}

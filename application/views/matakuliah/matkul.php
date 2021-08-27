@@ -10,7 +10,7 @@
    <?= anchor('tatausaha/matakuliah/tambah_matakuliah/'.$nama_prodi, '<button class="btn btn-sm btn-primary mb-3"><i class="fas fa-plus fa-sm"></i> Tambah Matakuliah</button>') ?>
 
 
-<!-- <div class="row mt-3 ">
+<div class="row mt-3 ">
     <div class="col-md-4">
       <form action="<?= base_url('matakuliah') ?>" method="post">
         <div class="input-group mb-3">
@@ -21,13 +21,15 @@
         </div>
       </form>
     </div>
-  </div> -->
+  </div>
 
   <table class="table table-border table-striped table-hover">
   	<tr>
   		<th>No</th>
   		<th>KODE MATAKULIAH</th>
   		<th>NAMA MATAKULIAH</th>
+      <th>SKS</th>
+      <th>SEMESTER</th>
   		<th>PROGRAM STUDI</th>
   		<th colspan="3">AKSI</th>
   	</tr>
@@ -38,8 +40,10 @@
   			<th><?= $i++; ?></th>
   			<td><?= $mk->kode_matakuliah;?></td>
   			<td><?= $mk->nama_matakuliah; ?></td>
+        <td><?= $mk->sks; ?></td>
+        <td><?= $mk->semester; ?></td>
   			<td><?= $mk->nama_prodi; ?></td>
-  			<td width="20px"><?= anchor('tatausaha/matakuliah/detail/' .$mk->kode_matakuliah, '<div class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></div>') ?></td>
+  			<!-- <td width="20px"><?= anchor('tatausaha/matakuliah/detail/' .$mk->kode_matakuliah, '<div class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></div>') ?></td> -->
   			<td width="20px"><?= anchor('tatausaha/matakuliah/update/' .$mk->kode_matakuliah, '<div class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></div>') ?></td>
     		<td width="20px"><?= anchor('tatausaha/matakuliah/delete/'.$nama_prodi.'/' .$mk->kode_matakuliah, '<div class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></div>') ?></td>
   		</tr>

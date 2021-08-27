@@ -11,6 +11,21 @@ class Mahasiswa_model extends CI_Model{
 		$id=$this->Mahasiswa_model->tambah_user();
 
 	}
+	public function semuaNilai($nim,$semester){
+		$query="SELECT tahun_akademik.tahun_akademik,tahun_akademik.semester
+							 ,krs.kode_matakuliah
+							 ,matakuliah.nama_matakuliah
+							 ,matakuliah.sks
+							 ,krs.nilai
+                             
+						FROM 
+							krs
+						INNER JOIN matakuliah
+						ON (krs.kode_matakuliah = matakuliah.kode_matakuliah)
+                        RIGHT JOIN tahun_akademik ON(krs.id_thn_akad=tahun_akademik.id_thn_akad)
+						WHERE krs.nim= $nim and tahun_akademik.semester=$semester ";
+		return $this->db->query($query)->result();
+	}
 	public function cek_akses($nim){
 		$this->db->select('is_akses');
 		$this->db->from('mahasiswa');

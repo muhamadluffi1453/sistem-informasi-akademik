@@ -40,8 +40,22 @@ $id_thn_akad = $krs->id_thn_akad;
 
  					if($semester){
  						$tampilSemester = "Ganjil";
- 					}else{
+ 					}elseif($semester==2){
  						$tampilSemester = "Genap";
+ 					}elseif($semester==3){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($semester==4){
+ 						$tampilSemester = "Genap";
+ 					}elseif($semester==5){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($semester==6){
+ 						$tampilSemester = "Genap";
+ 					}elseif($semester==7){
+ 						$tampilSemester = "Ganjil";
+ 					}elseif($semester==8){
+ 						$tampilSemester = "Genap";
+ 					}else{
+ 						
  					}
  				 ?>
 

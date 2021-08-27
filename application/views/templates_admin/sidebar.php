@@ -42,11 +42,11 @@
           <span>KHS</span></a>
       </li>
 
-      <li class="nav-item active">
+      <!-- <li class="nav-item active">
         <a class="nav-link" href="<?= base_url('transkrip_nilai/index'); ?>">
           <i class="fas fa-fw fa-file-alt"></i>
           <span>Transkrip Nilai</span></a>
-      </li>
+      </li> -->
 
       <li class="nav-item active">
         <a class="nav-link" href="<?= base_url('nilai/input_nilai') ?>">
@@ -80,11 +80,11 @@
           <span>User Akademik</span></a>
       </li>
 
-      <!-- <li class="nav-item active">
-        <a class="nav-link" href="<?= base_url('barang/index'); ?>">
+      <li class="nav-item active">
+        <a class="nav-link" href="<?= base_url('batasnilai/index'); ?>">
           <i class="fas fa-fw fa-university"></i>
-          <span>Barang</span></a>
-      </li> -->
+          <span>Batas Nilai</span></a>
+      </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
       

@@ -42,6 +42,7 @@ class Infojadwal_ujian extends CI_Controller{
 		$judul['title'] = 'Halaman Informasi Jadwal Ujian';
 		$this->load->view('templates_admin/templates_mhs/auth_header', $judul);
 		$this->load->view('templates_admin/templates_mhs/sidebar');
+		$this->load->view('templates_admin/templates_mhs/topbar');
 		$this->load->view('infojadwal_ujian/dataj_ujian', $data);
 		$this->load->view('templates_admin/templates_mhs/auth_footer');
 }

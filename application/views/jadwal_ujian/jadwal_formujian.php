@@ -2,6 +2,7 @@
 	<div class="alert alert-success">
 		<i class="fas fa-university"></i> FORM  HALAMAN TAMBAH JADWAL UJIAN
 	</div>
+	<?= $this->session->flashdata('pesan'); ?>
 
 	<form method="post" action="<?= base_url('tatausaha/jadwal_ujian/tambah_jadwalujian_aksi/'.$nama_prodi.'/'.$nama_ujian); ?>">
 		

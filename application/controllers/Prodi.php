@@ -74,6 +74,7 @@ class Prodi extends CI_Controller{
 		$data['prodi'] = $this->prodi_model->getProdi($config['per_page'], $data['start'], $data['keyword']);
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('prodi/dataprodi', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}
@@ -88,6 +89,7 @@ class Prodi extends CI_Controller{
 		$judul['title'] = 'Form Input Data Prodi';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('prodi/dataprodi_form', $data);
 		$this->load->view('templates_admin/auth_footer');	
 	}
@@ -125,6 +127,7 @@ class Prodi extends CI_Controller{
 		$judul['title'] = 'Form Update Prodi';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('prodi/dataprodi_update', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}

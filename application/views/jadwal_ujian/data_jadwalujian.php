@@ -24,8 +24,13 @@
 		</table>
 	</center>
 
-	<?= anchor('tatausaha/jadwal_ujian/tambah_jadwal_ujian/'.$nama_prodi.'/'.$nama_ujian, '<button class="btn btn-sm btn-primary mb-3"><i class="fas fa-plus fa-sm"></i> Tambah Jadwal Ujian</button>') ?>
+	<?= anchor('tatausaha/jadwal_ujian/tambah_jadwal_ujian/'.$nama_prodi.'/'.$nama_ujian, '<button class="btn btn-sm btn-primary mb-3"><i class="fas fa-plus fa-sm"></i> Tambah Jadwal Ujian</button>')
+	 ?>
 
+	<a href="<?= base_url('tatausaha/jadwal_ujian/print_ujian/').$nama_prodi.'/'.$nama_ujian ?>" target="_blank" class="btn btn-info"><i class="fas fa-print">Print</i></a>
+
+
+	
 	<table class="table table-bordered table-striped table-hover">
 		<tr>
 			<th>NO</th>

@@ -21,7 +21,10 @@
 		<div class="form-group">
 			<label>Mata Kuliah</label>
 			<?php 
-				$query = $this->db->query('SELECT kode_matakuliah,nama_matakuliah FROM matakuliah');
+				$query = $this->db->query("SELECT matakuliah.*,prodi.nama_prodi
+											FROM matakuliah
+											JOIN prodi ON prodi.id_prodi=matakuliah.id_prodi
+                                            WHERE prodi.nama_prodi='$prodi'");
 
 				$dropdowns = $query->result();
 				foreach($dropdowns as $dropdown) {
@@ -31,6 +34,8 @@
 				echo form_dropdown('kode_matakuliah', $dropDownList, $kode_matakuliah, 'class="form-control" id="kode_matakuliah"');
 			 ?>
 		</div>
+
+
 
 		<button type="sumbit" class="btn btn-primary">Simpan</button>
 		<?= anchor('krs/krs_aksi', '<div class="btn btn-danger"> Cancel </div>') ?>

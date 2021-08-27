@@ -20,6 +20,8 @@
 		</table>
 		
 	</center>
+	
+	<a href="<?= base_url('tatausaha/jadwal_ujian/print_mengajar/').$nama_prodi?>" target="_blank" class="btn btn-info"><i class="fas fa-print">Print</i></a>
 
 	<table class="table table-bordered table-striped table-hover">
 		<tr>

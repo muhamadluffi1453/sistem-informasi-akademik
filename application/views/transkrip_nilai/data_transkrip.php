@@ -30,7 +30,7 @@
 			<th>NAMA MATA KULIAH</th>
 			<th align="center">SKS</th>
 			<th align="center">NILAI</th>
-			<th align="center">SKOR</th>
+			<th align="center">ANGKA MUTU</th>
 		</tr>
 
 		<?php 
@@ -44,7 +44,7 @@
 					<td><?= $tr->kode_matakuliah  ?></td>
 					<td><?= $tr->nama_matakuliah  ?></td>
 					<td align="center"><?= $tr->sks  ?></td>
-					<td align="center"><?= $tr->nilai  ?></td>
+					<td align="center"><?= konvert($tr->nilai)  ?></td>
 					<td align="center"><?= skorNilai($tr->nilai,$tr->sks);  ?></td>
 
 					<?php 

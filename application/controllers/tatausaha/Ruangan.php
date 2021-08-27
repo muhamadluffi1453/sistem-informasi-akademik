@@ -35,7 +35,7 @@ class Ruangan extends CI_Controller{
 		$config['base_url'] = 'http://localhost/akademik2/tatausaha/ruangan/index';
 		$config['total_rows'] = $this->db->count_all_results();
 		$data['total_rows'] = $config['total_rows'];
-		$config['per_page'] = 5;
+		$config['per_page'] = 10;
 		$config['num_links'] = 2;
 
 		
@@ -72,11 +72,12 @@ class Ruangan extends CI_Controller{
 		// initialize
 		$this->pagination->initialize($config);
 
-		$data['start'] = $this->uri->segment(3);
+		$data['start'] = $this->uri->segment(4);
 		$data['ruangan'] = $this->ruangan_model->getRuangan($config['per_page'], $data['start'], $data['keyword']);
 
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('ruangan/index', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -92,6 +93,7 @@ class Ruangan extends CI_Controller{
 		$judul['title'] = 'Form Input Data Ruangan';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('ruangan/ruangan_form', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -130,6 +132,7 @@ class Ruangan extends CI_Controller{
 		$judul['title'] = 'Form Update Data Ruangan';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('ruangan/dataruangan_update', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}

@@ -2,9 +2,9 @@
 	<div class="alert alert-success">
 		<i class="fas fa-university"></i> FORM TAMBAH JADWAL MENGAJAR
 	</div>
-
+	<?= $this->session->flashdata('pesan'); ?>
 	<form method="post" action="<?= base_url('tatausaha/jadwal_mengajar/tambah_jadwal_aksi/'.$nama_prodi); ?>">
-		<input type="hidden" name="id_prodi"  class="form-control">
+		<input type="hidden" name="nama_prodi"  class="form-control">
 		<div class="form-group">
 			<label>Nama Matakuliah</label>
 			<select id="kode_matakuliah" name="kode_matakuliah" class="form-control" >

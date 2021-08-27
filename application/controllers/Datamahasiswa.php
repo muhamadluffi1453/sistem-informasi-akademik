@@ -83,6 +83,7 @@ class Datamahasiswa extends CI_Controller{
 		$data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswa($config['per_page'], $data['start'], $data['keyword']);
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('datamahasiswa/index', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}
@@ -90,11 +91,11 @@ class Datamahasiswa extends CI_Controller{
 	public function input()
 	{
 		
-
 		$data['prodi'] = $this->Mahasiswa_model->tampil_data('prodi')->result();
 		$judul['title'] = 'Form Input Mahasiswa';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('datamahasiswa/datamahasiswa_form', $data);
 		$this->load->view('templates_admin/auth_footer');	
 }
@@ -138,6 +139,15 @@ class Datamahasiswa extends CI_Controller{
 				$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert">Nim Yang Anda Masukan Sudah Terdaftar<button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
 				redirect('datamahasiswa/input');
 			}
+
+			$nim = $this->input->post('nim');
+			$hitung_nim = strlen($nim);
+			// var_dump($hitung_nim); die;
+			if($hitung_nim !==9 ){
+				$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert">Nim Yang Anda Masukan Lebih Dari 9 Digit<button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
+				redirect('datamahasiswa/input');
+			}
+			
 
 			$data = [
 					'nama' 			=> $nama,
@@ -187,6 +197,7 @@ class Datamahasiswa extends CI_Controller{
 		$judul['title'] = 'Form Update Mahasiswa';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('datamahasiswa/datamahasiswa_update', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}
@@ -268,6 +279,7 @@ class Datamahasiswa extends CI_Controller{
 		$judul['title'] = 'Halaman Detail Mahasiswa';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('datamahasiswa/datamahasiswa_detail', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}

@@ -19,6 +19,7 @@ class Nilai_tu extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman KHS';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('nilai_tu/masuk_khs', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -31,30 +32,27 @@ class Nilai_tu extends CI_Controller{
 			$this->index();
 		}else{
 			$nim = $this->input->post('nim', TRUE);
-			$thn_akad = $this->input->post('id_thn_akad', TRUE);
+			//$thn_akad = $this->input->post('id_thn_akad', TRUE);
 			}
+			$nim = $this->input->post('nim', TRUE);
 			if($this->Mahasiswa_model->get_by_id($nim)==null)
 		{
 			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert">Data Mahasiswa yang Anda Input Belum Terdaftar<button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
 			redirect('tatausaha/nilai_tu/index');
 		}
 
-			$query = "SELECT krs.id_thn_akad
-							 ,krs.kode_matakuliah
-							 ,matakuliah.nama_matakuliah
-							 ,matakuliah.sks
-							 ,krs.nilai
+			$query = " 	SELECT tahun_akademik.tahun_akademik,tahun_akademik.semester
+                             
 						FROM 
 							krs
 						INNER JOIN matakuliah
 						ON (krs.kode_matakuliah = matakuliah.kode_matakuliah)
-						WHERE krs.nim= $nim AND krs.id_thn_akad= $thn_akad";
+                        RIGHT JOIN tahun_akademik ON(krs.id_thn_akad=tahun_akademik.id_thn_akad)
+						WHERE krs.nim= $nim GROUP BY semester ";
 
 			$sql = $this->db->query($query)->result();
 
-			$smt = $this->db->select('tahun_akademik, semester')
-							->from('tahun_akademik')
-							->where(['id_thn_akad' =>$thn_akad])->get()->row();
+			
 
 			$query_str = "SELECT mahasiswa.nim
 								 ,mahasiswa.nama 
@@ -65,23 +63,23 @@ class Nilai_tu extends CI_Controller{
 								ON (mahasiswa.nama_prodi = prodi.nama_prodi);";
 			$mhs = $this->db->query($query_str)->row();
 
-			if($smt->semester == 1){
-				$tampilsemester ="Ganjil";
-			}else{
-				$tampilsemester = "Genap";
-			}
+			$databd=$this->krs_model->totalSks($nim);
+
+			
 		
 
 		$data = [
 				'mhs_data' => $sql,
 				'mhs_nim' => $nim,
 				'mhs_nama' => $this->Mahasiswa_model->get_by_id($nim)->nama,
+				'totalSmstr' => $databd[0]['jumlahSks'],
 				'mhs_prodi' => $this->Mahasiswa_model->get_by_id($nim)->nama_prodi,
-				'thn_akad' => $smt->tahun_akademik."(".$tampilsemester.")"
+				
 		];
 		$judul['title'] = 'Halaman Nilai KHS';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('nilai_tu/khs', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -89,7 +87,7 @@ class Nilai_tu extends CI_Controller{
 	public function _rulesKhs()
 	{
 		$this->form_validation->set_rules('nim', 'nim', 'required');
-		$this->form_validation->set_rules('id_thn_akad', 'id_thn_akad', 'required');
+		// $this->form_validation->set_rules('id_thn_akad', 'id_thn_akad', 'required');
 	}
 
 	public function input_nilai()

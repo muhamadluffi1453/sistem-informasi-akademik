@@ -86,7 +86,7 @@ $nilai->load->model('tahunakademik_model');
  	  				<td><?= $row->nim; ?></td>
  	  				<td><?= $row->nama;  ?></td>
  	  				<input type="hidden" name="id_krs[]" value="<?= $row->id_krs; ?>">
- 	  				<td width="25px"><input type="text" name="nilai[]" class="form-control" value="<?= $row->nilai; ?>"></td>
+ 	  				<td width="100px"><input type="text" name="nilai[]" class="form-control" value="<?= $row->nilai; ?>"></td>
  	  			</tr>
  	  		<?php endforeach; ?>
  	  	</table>

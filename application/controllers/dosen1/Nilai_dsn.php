@@ -19,6 +19,7 @@ class Nilai_dsn extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman KHS';
 		$this->load->view('templates_admin/templates_dosen/auth_header', $judul);
 		$this->load->view('templates_admin/templates_dosen/sidebar');
+		$this->load->view('templates_admin/templates_dosen/topbar');
 		$this->load->view('nilai_dsn/masuk_khs', $data);
 		$this->load->view('templates_admin/templates_dosen/auth_footer');
 	}

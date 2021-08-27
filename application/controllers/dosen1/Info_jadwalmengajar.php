@@ -19,6 +19,7 @@ class Info_jadwalmengajar extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman Info Jadwal Mengajar';
 		$this->load->view('templates_admin/templates_dosen/auth_header', $judul);
 		$this->load->view('templates_admin/templates_dosen/sidebar');
+		$this->load->view('templates_admin/templates_dosen/topbar');
 		$this->load->view('info_jadwalmengajar/masuk_jkuliah', $data);
 		$this->load->view('templates_admin/templates_dosen/auth_footer');
 	}
@@ -30,6 +31,7 @@ class Info_jadwalmengajar extends CI_Controller{
 		$data['nama_prodi'] = $nama_prodi;
 		$this->load->view('templates_admin/templates_dosen/auth_header', $judul);
 		$this->load->view('templates_admin/templates_dosen/sidebar');
+		$this->load->view('templates_admin/templates_dosen/topbar');
 		$this->load->view('info_jadwalmengajar/masuk_jadwalmengajar', $data);
 		$this->load->view('templates_admin/templates_dosen/auth_footer');
 	}

@@ -22,6 +22,7 @@ class Jadwal_mengajar extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman Jadwal Mengajar';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('jadwal_mengajar/masuk_jadwal', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 
@@ -41,6 +42,7 @@ class Jadwal_mengajar extends CI_Controller{
 		$data['nama_prodi'] = $nama_prodi;
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('jadwal_mengajar/data_jadwalmengajar', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 
@@ -56,6 +58,7 @@ class Jadwal_mengajar extends CI_Controller{
 
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('jadwal_mengajar/jadwal_form', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -64,12 +67,18 @@ class Jadwal_mengajar extends CI_Controller{
 	{
 		
 		$P=$nama_prodi;
-		
+		$prodi=$this->input->post('id_ruangan');
+		$hari=$this->input->post('hari');
+		$jam=$this->input->post('jam');
+		$cekRuangan = $this->jadwalmengajar_model->cekRuangan($prodi,$hari,$jam);
 		$this->_rules();
 
 		if($this->form_validation->run() == FALSE)
 		{
-			$this->tambah_jadwal();
+			$this->tambah_jadwal($nama_prodi);
+		}elseif ($cekRuangan){
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert"> Ruangan Sudah Ada Jadwal <button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
+						redirect('tatausaha/jadwal_mengajar/tambah_jadwal/'.$P);
 		}else{
 			$kode_matakuliah 	= $this->input->post('kode_matakuliah');
 			$id_dosen 	= $this->input->post('id_dosen');
@@ -114,6 +123,7 @@ class Jadwal_mengajar extends CI_Controller{
 
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('jadwal_mengajar/jadwal_update', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 

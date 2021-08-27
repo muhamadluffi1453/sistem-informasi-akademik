@@ -16,11 +16,11 @@
 
 	<form method="post" action="<?= base_url('mahasiswa/krs/krs_aksi') ?>">
 		
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label>NIM Mahasiswa</label>
 			<input type="text" name="nim" placeholder="Masukan Nim Mahasiswa" class="form-control">
 			<?= form_error('nim', '<div class="text-danger small ml-2">','</div>') ?>
-		</div>
+		</div> -->
 
 		<div class="form-group">
 			<label>Tahun Akademik / Semester</label>
@@ -33,9 +33,24 @@
 
 					if($dropdown->semester == 1){
 						$tampilsemester = "Ganjil";
-					}else{
+					}elseif($dropdown->semester == 2){
 						$tampilsemester = "Genap";
+					}elseif($dropdown->semester == 3){
+						$tampilsemester = "Ganjil";
+					}elseif($dropdown->semester == 4){
+						$tampilsemester = "Genap";
+					}elseif($dropdown->semester == 5){
+						$tampilsemester = "Ganjil";
+					}elseif($dropdown->semester == 6){
+						$tampilsemester = "Genap";
+					}elseif($dropdown->semester == 7){
+						$tampilsemester = "Ganjil";
+					}elseif($dropdown->semester == 8){
+						$tampilsemester = "Genap";
+					}else{
+						
 					}
+
 
 					$dropDownList[$dropdown->id_thn_akad] = $dropdown->thn_semester . " " . $tampilsemester;
 				}

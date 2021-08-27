@@ -21,6 +21,7 @@ class Jadwal_ujian extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman Jadwal Ujian';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('jadwal_ujian/masuk_j', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -43,6 +44,7 @@ class Jadwal_ujian extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman Jadwal Ujian';
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('jadwal_ujian/data_jadwalujian',$data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -58,20 +60,30 @@ class Jadwal_ujian extends CI_Controller{
 		$data['nama_ujian'] = $nama_ujian;
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('jadwal_ujian/jadwal_formujian', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
 
 	public function tambah_jadwalujian_aksi($nama_prodi,$nama_ujian)
 	{
+
 		$ID=$nama_prodi;
 		$UJ=$nama_ujian;
+		$prodi=$this->input->post('id_ruangan');
+		$hari=$this->input->post('hari');
+		$jam=$this->input->post('jam');
+		//echo "ruangan ".$prodi." hari ".$hari."jam ".$jam;
+		$cekRuangan = $this->jadwalujian_model->cekRuangan($prodi,$hari,$jam);
 		$this-> __rules();
 
 		if($this->form_validation->run() == FALSE)
 		{
-			$this->tambah_jadwal_ujian();
-		}else{
+			$this->tambah_jadwal_ujian($nama_prodi,$nama_ujian);
+		}elseif ($cekRuangan) {
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dimissible fade show" role="alert"> Ruangan Sudah Ada Jadwal <button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
+			redirect('tatausaha/jadwal_ujian/tambah_jadwal_ujian/' .$ID.'/' .$UJ);
+		} else{
 			$kode_matakuliah = $this->input->post('kode_matakuliah');
 			$id_dosen = $this->input->post('id_dosen');
 			$id_ruangan = $this->input->post('id_ruangan');
@@ -118,6 +130,7 @@ class Jadwal_ujian extends CI_Controller{
 
 		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
 		$this->load->view('templates_admin/templates_tu/sidebar');
+		$this->load->view('templates_admin/templates_tu/topbar');
 		$this->load->view('jadwal_ujian/jadwal_update', $data);
 		$this->load->view('templates_admin/templates_tu/auth_footer');
 	}
@@ -156,6 +169,25 @@ class Jadwal_ujian extends CI_Controller{
 		$this->jadwalujian_model->hapus_data($where,'jadwal_ujian');
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dimissible fade show" role="alert">Data Jadwal Berhasil Dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close" <span aria-hidden="true">&times;</span></button></div>');
 		redirect('tatausaha/jadwal_ujian/masuk_jadwalujian/?id_prodi='.$nama_prodi.'&id_ujian='.$nama_ujian);
+	}
+
+	public function print_ujian()
+	{
+		if (isset($_POST['id_prodi'])) {
+				$nama_prodi=$this->input->post('id_prodi');
+				$nama_ujian=$this->input->post('id_ujian');
+		}elseif (isset($_GET)) {
+			$nama_prodi=$this->input->get('id_prodi');
+			$nama_ujian=$this->input->get('id_ujian');
+		}
+		
+		$data['join_ujian'] = $this->jadwalujian_model->jointable_ujian($nama_prodi,$nama_ujian);
+		$data['nama_prodi'] = $nama_prodi;
+		$data['nama_ujian'] = $nama_ujian;
+		$judul['title'] = 'Masuk Halaman Jadwal Ujian';
+		$this->load->view('templates_admin/templates_tu/auth_header', $judul);
+		$this->load->view('jadwal_ujian/print_ujian',$data);
+		
 	}
 	
 }

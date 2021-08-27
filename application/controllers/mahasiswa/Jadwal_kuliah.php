@@ -19,6 +19,7 @@ class Jadwal_kuliah extends CI_Controller{
 		$judul['title'] = 'Masuk Halaman Jadwal Kuliah';
 		$this->load->view('templates_admin/templates_mhs/auth_header', $judul);
 		$this->load->view('templates_admin/templates_mhs/sidebar');
+		$this->load->view('templates_admin/templates_mhs/topbar');
 		$this->load->view('jadwal_kuliah/masuk_jkuliah', $data);
 		$this->load->view('templates_admin/templates_mhs/auth_footer');
 	}
@@ -30,6 +31,7 @@ class Jadwal_kuliah extends CI_Controller{
 		$data['nama_prodi'] = $nama_prodi;
 		$this->load->view('templates_admin/templates_mhs/auth_header', $judul);
 		$this->load->view('templates_admin/templates_mhs/sidebar');
+		$this->load->view('templates_admin/templates_mhs/topbar');
 		$this->load->view('jadwal_kuliah/masuk_jadwalkuliah', $data);
 		$this->load->view('templates_admin/templates_mhs/auth_footer');
 	}

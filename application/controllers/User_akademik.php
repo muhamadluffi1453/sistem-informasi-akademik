@@ -89,6 +89,7 @@ class User_akademik extends CI_Controller{
 		$judul['title'] = 'Form Tambah User';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('user_akademik/user_form', $data);
 		$this->load->view('templates_admin/auth_footer');
 
@@ -162,6 +163,7 @@ class User_akademik extends CI_Controller{
 		$judul['title'] = 'Form Update User';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('user_akademik/user_update', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}
@@ -230,6 +232,7 @@ class User_akademik extends CI_Controller{
 		$judul['title'] = 'Detail User';
 		$this->load->view('templates_admin/auth_header', $judul);
 		$this->load->view('templates_admin/sidebar');
+		$this->load->view('templates_admin/topbar');
 		$this->load->view('user_akademik/user_detail', $data);
 		$this->load->view('templates_admin/auth_footer');
 	}
